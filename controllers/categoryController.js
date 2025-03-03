@@ -41,4 +41,26 @@ const DeleteCategory = async (req, res) => {
   }
 };
 
-module.exports = { getAllCategories, postAddCategory, DeleteCategory };
+const putUpdateCategory = async (req, res) => {
+  const { id } = req.params;
+  const { name, description, imageUrl } = req.body;
+
+  if (!name || !description) {
+    return res.status(400).json({ error: 'Name and description are required' });
+  }
+  try {
+    const result = await db.updateCategory(id, name, description, imageUrl);
+    if (result.error) {
+      return res.status(404).json(result);
+    }
+
+    return res.json(result);
+  } catch (error) {
+    console.error('🔥 Error updating category:', error.message);
+    return res.status(500).json({ error: 'database error whilst updating category' });
+  }
+};
+
+module.exports = {
+  getAllCategories, postAddCategory, DeleteCategory, putUpdateCategory,
+};

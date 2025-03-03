@@ -34,4 +34,24 @@ async function deleteCategory(id) {
   }
 }
 
-module.exports = { AllCategories, AddCategory, deleteCategory };
+async function updateCategory(id, name, description, imageUrl) {
+  const query = `   UPDATE category 
+    SET name = $1, description = $2, image_url = $3 
+    WHERE id = $4 
+    RETURNING *;
+`;
+  try {
+    const { rowCount, rows } = await pool.query(query, [name, description, imageUrl, id]);
+    if (rowCount === 0) {
+      return { error: 'category not found' };
+    }
+    return rows[0];
+  } catch (error) {
+    console.error('error updating category', error.message);
+    throw error;
+  }
+}
+
+module.exports = {
+  AllCategories, AddCategory, deleteCategory, updateCategory,
+};
