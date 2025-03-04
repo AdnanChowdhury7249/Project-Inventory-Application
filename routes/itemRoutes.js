@@ -1,8 +1,9 @@
 const express = require('express');
-const { getAllItems } = require('../controllers/itemController');
+const { getAllItems, postAddItem } = require('../controllers/itemController');
 
 const router = express.Router();
 
 router.get('/', getAllItems);
+router.post('/:categoryId', postAddItem);
 
 module.exports = router;
