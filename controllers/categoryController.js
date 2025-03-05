@@ -1,16 +1,15 @@
 const db = require('../queries/categoryQueries');
 
-const getAllCategories = async (req, res) => {
+const getAllCategories = async (req, res, next) => {
   try {
     const result = await db.AllCategories();
     res.json(result.rows);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'database error' });
+    next(error);
   }
 };
 
-const postAddCategory = async (req, res) => {
+const postAddCategory = async (req, res, next) => {
   const { name, description, imageUrl } = req.body;
 
   if (!name || !description) {
@@ -21,11 +20,11 @@ const postAddCategory = async (req, res) => {
     const newCategory = await db.AddCategory(name, description, imageUrl);
     return res.status(201).json(newCategory);
   } catch (error) {
-    return res.status(500).json({ error: error.message || 'Database error whilst adding category' });
+    return next(error);
   }
 };
 
-const deleteCategory = async (req, res) => {
+const deleteCategory = async (req, res, next) => {
   const { id } = req.params;
 
   try {
@@ -37,11 +36,11 @@ const deleteCategory = async (req, res) => {
 
     return res.json(result);
   } catch (error) {
-    return res.status(500).json({ error: error.message || 'Database error whilst deleting category' });
+    return next(error);
   }
 };
 
-const putUpdateCategory = async (req, res) => {
+const putUpdateCategory = async (req, res, next) => {
   const { id } = req.params;
   const { name, description, imageUrl } = req.body;
 
@@ -57,7 +56,7 @@ const putUpdateCategory = async (req, res) => {
     return res.json(result);
   } catch (error) {
     console.error('Error updating category:', error.message);
-    return res.status(500).json({ error: 'database error whilst updating category' });
+    return next(error);
   }
 };
 

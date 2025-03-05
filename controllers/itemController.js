@@ -1,12 +1,12 @@
 const db = require('../queries/itemQueries');
 
-const getAllItems = async (req, res) => {
+const getAllItems = async (req, res, next) => {
   try {
     const result = await db.allItems();
     res.json(result.rows);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'database error' });
+    return next(error);
   }
 };
 
@@ -24,7 +24,7 @@ const postAddItem = async (req, res) => {
   }
 };
 
-const deleteItem = async (req, res) => {
+const deleteItem = async (req, res, next) => {
   const { id } = req.params;
 
   try {
@@ -35,11 +35,11 @@ const deleteItem = async (req, res) => {
     }
     return res.json(result);
   } catch (error) {
-    return res.status(500).json({ error: error.message || 'Database error whilst deleting item' });
+    return next(error);
   }
 };
 
-const putUpdateItem = async (req, res) => {
+const putUpdateItem = async (req, res, next) => {
   const { id } = req.params;
   const { name, description, imageUrl } = req.body;
   if (!name || !description) {
@@ -51,10 +51,9 @@ const putUpdateItem = async (req, res) => {
     if (result.error) {
       return res.status(404).json(result);
     }
-
     return res.status(200).json(result);
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return next(error);
   }
 };
 
