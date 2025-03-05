@@ -19,4 +19,18 @@ async function addItem(name, description, categoryId, imageUrl) {
   }
 }
 
-module.exports = { allItems, addItem };
+async function deleteItem(id) {
+  const query = 'DELETE FROM items WHERE id = $1 RETURNING *';
+  try {
+    const { rowCount } = await pool.query(query, [id]);
+    if (rowCount === 0) {
+      return { error: 'item does not exist' };
+    }
+    return { message: 'item successfully deleted' };
+  } catch (error) {
+    console.error('error deleting item', error.message);
+    throw new Error('Database error while deleting item');
+  }
+}
+
+module.exports = { allItems, addItem, deleteItem };

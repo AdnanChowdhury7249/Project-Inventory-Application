@@ -14,7 +14,7 @@ const postAddItem = async (req, res) => {
   const { name, description, imageUrl } = req.body;
   const { categoryId } = req.params;
   if (!name || !description) {
-    return res.status(400).json({ error: 'Name, description and category id are required' });
+    return res.status(400).json({ error: 'Name and description are required' });
   }
   try {
     const newItem = await db.addItem(name, description, categoryId, imageUrl);
@@ -24,4 +24,19 @@ const postAddItem = async (req, res) => {
   }
 };
 
-module.exports = { getAllItems, postAddItem };
+const deleteItem = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await db.deleteItem(id);
+
+    if (result.error) {
+      return res.status(404).json(result);
+    }
+    return res.json(result);
+  } catch (error) {
+    return res.status(500).json({ error: error.message || 'Database error whilst deleting category' });
+  }
+};
+
+module.exports = { getAllItems, postAddItem, deleteItem };
