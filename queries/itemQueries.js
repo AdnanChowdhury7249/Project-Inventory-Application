@@ -33,4 +33,24 @@ async function deleteItem(id) {
   }
 }
 
-module.exports = { allItems, addItem, deleteItem };
+async function updateItem(id, name, description, imageUrl) {
+  const query = `UPDATE items
+  set name = $1, description = $2, image_url = $3 
+  WHERE id = $4
+  RETURNING *
+  `;
+  try {
+    const { rowCount, rows } = await pool.query(query, [name, description, imageUrl, id]);
+    if (rowCount === 0) {
+      return { error: 'item not found' };
+    }
+    return rows[0];
+  } catch (error) {
+    console.error('error updating items', error.message);
+    throw new Error('database error whilst updating item');
+  }
+}
+
+module.exports = {
+  allItems, addItem, deleteItem, updateItem,
+};

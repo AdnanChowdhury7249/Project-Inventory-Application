@@ -39,4 +39,25 @@ const deleteItem = async (req, res) => {
   }
 };
 
-module.exports = { getAllItems, postAddItem, deleteItem };
+const putUpdateItem = async (req, res) => {
+  const { id } = req.params;
+  const { name, description, imageUrl } = req.body;
+  if (!name || !description) {
+    return res.status(400).json({ error: 'name and description required' });
+  }
+  try {
+    const result = await db.updateItem(id, name, description, imageUrl);
+
+    if (result.error) {
+      return res.status(404).json(result);
+    }
+
+    return res.status(201).json(result);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = {
+  getAllItems, postAddItem, deleteItem, putUpdateItem,
+};
