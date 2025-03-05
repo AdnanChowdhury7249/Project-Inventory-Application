@@ -25,7 +25,7 @@ const postAddCategory = async (req, res) => {
   }
 };
 
-const DeleteCategory = async (req, res) => {
+const deleteCategory = async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -56,11 +56,11 @@ const putUpdateCategory = async (req, res) => {
 
     return res.json(result);
   } catch (error) {
-    console.error('🔥 Error updating category:', error.message);
+    console.error('Error updating category:', error.message);
     return res.status(500).json({ error: 'database error whilst updating category' });
   }
 };
 
 module.exports = {
-  getAllCategories, postAddCategory, DeleteCategory, putUpdateCategory,
+  getAllCategories, postAddCategory, deleteCategory, putUpdateCategory,
 };

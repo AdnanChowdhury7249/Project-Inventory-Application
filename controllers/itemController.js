@@ -35,7 +35,7 @@ const deleteItem = async (req, res) => {
     }
     return res.json(result);
   } catch (error) {
-    return res.status(500).json({ error: error.message || 'Database error whilst deleting category' });
+    return res.status(500).json({ error: error.message || 'Database error whilst deleting item' });
   }
 };
 
@@ -52,7 +52,7 @@ const putUpdateItem = async (req, res) => {
       return res.status(404).json(result);
     }
 
-    return res.status(201).json(result);
+    return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

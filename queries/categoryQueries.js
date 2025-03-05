@@ -15,6 +15,7 @@ async function AddCategory(name, description, imageUrl) {
     return result.rows[0];
   } catch (error) {
     console.error('Error adding category:', error.message);
+    throw error;
   }
 }
 
