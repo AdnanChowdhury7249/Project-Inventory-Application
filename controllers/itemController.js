@@ -3,14 +3,14 @@ const db = require('../queries/itemQueries');
 const getAllItems = async (req, res, next) => {
   try {
     const result = await db.allItems();
-    res.json(result.rows);
+    return res.json(result.rows);
   } catch (error) {
     console.error(error);
     return next(error);
   }
 };
 
-const postAddItem = async (req, res) => {
+const postAddItem = async (req, res, next) => {
   const { name, description, imageUrl } = req.body;
   const { categoryId } = req.params;
   if (!name || !description) {
@@ -20,7 +20,7 @@ const postAddItem = async (req, res) => {
     const newItem = await db.addItem(name, description, categoryId, imageUrl);
     return res.status(201).json(newItem);
   } catch (error) {
-    return res.status(500).json({ error: error.message || 'database error whilst adding item' });
+    return next(error);
   }
 };
 
