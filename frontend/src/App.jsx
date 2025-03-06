@@ -1,21 +1,16 @@
-import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import CategoriesPage from "./pages/CategoriesPage";
+import ItemsPage from "./pages/ItemsPage";
 
-function App() {
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    fetch("http://localhost:5000/api/test")
-      .then((response) => response.json())
-      .then((data) => setData(data.message))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
-
+function app() {
   return (
-    <div>
-      <h1>React + Express Test</h1>
-      <p>{data ? data : "Loading..."}</p>
-    </div>
-  );
+    <Router>
+      <Routes>
+        <Route path="/" element={<CategoriesPage />} />
+        <Route path="/category/:id" element={<ItemsPage />} />
+      </Routes>
+    </Router>
+  )
 }
 
-export default App;
+export default app;
