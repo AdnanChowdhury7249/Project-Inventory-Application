@@ -57,6 +57,19 @@ const putUpdateItem = async (req, res, next) => {
   }
 };
 
+const getItemsByCategory = async (req, res, next) => {
+  const { categoryId } = req.params;
+  try {
+    const result = await db.getItems(categoryId);
+    if (result.length === 0) {
+      return res.status(404).json({ error: 'No items found for this category.' });
+    }
+    return res.json(result);
+  } catch (error) {
+    return next(error);
+  }
+};
+
 module.exports = {
-  getAllItems, postAddItem, deleteItem, putUpdateItem,
+  getAllItems, postAddItem, deleteItem, putUpdateItem, getItemsByCategory,
 };

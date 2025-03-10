@@ -4,6 +4,12 @@ async function allItems() {
   return pool.query('SELECT * FROM items');
 }
 
+async function getItems(categoryId) {
+  const query = 'SELECT * FROM items WHERE category_id = $1';
+  const { rows } = await pool.query(query, [categoryId]);
+  return rows; // ✅ Ensure it returns actual rows
+}
+
 async function addItem(name, description, categoryId, imageUrl) {
   const query = `
   INSERT into items(name, description, category_id, image_url)
@@ -52,5 +58,5 @@ async function updateItem(id, name, description, imageUrl) {
 }
 
 module.exports = {
-  allItems, addItem, deleteItem, updateItem,
+  allItems, addItem, deleteItem, updateItem, getItems,
 };

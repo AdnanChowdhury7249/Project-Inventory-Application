@@ -53,6 +53,12 @@ async function updateCategory(id, name, description, imageUrl) {
   }
 }
 
+async function getCategory(id) {
+  const query = 'SELECT * FROM category WHERE id = $1'; // ✅ Fetch category by ID
+  const { rows } = await pool.query(query, [id]);
+  return rows[0]; // ✅ Return first row (single category)
+}
+
 module.exports = {
-  AllCategories, AddCategory, deleteCategory, updateCategory,
+  AllCategories, AddCategory, deleteCategory, updateCategory, getCategory,
 };

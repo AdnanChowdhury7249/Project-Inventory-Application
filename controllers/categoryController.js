@@ -60,6 +60,20 @@ const putUpdateCategory = async (req, res, next) => {
   }
 };
 
+const getCategoryById = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const result = await db.getCategory(id);
+    if (!result) {
+      return res.status(404).json({ error: 'Category not found' });
+    }
+    return res.json(result);
+  } catch (error) {
+    return next(error);
+  }
+};
+
 module.exports = {
-  getAllCategories, postAddCategory, deleteCategory, putUpdateCategory,
+  getAllCategories, postAddCategory, deleteCategory, putUpdateCategory, getCategoryById,
 };

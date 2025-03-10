@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CategoriesPage from "./pages/CategoriesPage";
 import ItemsPage from "./pages/ItemsPage";
 
-function app() {
+function App() {
   return (
     <Router>
       <Routes>
@@ -10,7 +10,7 @@ function app() {
         <Route path="/category/:id" element={<ItemsPage />} />
       </Routes>
     </Router>
-  )
+  );
 }
 
-export default app;
+export default App;
