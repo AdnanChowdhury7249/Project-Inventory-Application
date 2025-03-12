@@ -36,15 +36,15 @@ const CategoryForm = () => {
           required
           className="p-2 border border-gray-300 rounded"
         />
-        <input
+        <textarea
           type="text"
           name="description"
           value={categoryData.description}
           onChange={handleChange}
           placeholder="Category Description"
           required
-          className="p-2 border border-gray-300 rounded"
-        />
+          className="p-2 border border-gray-300 rounded w-full h-32 resize-none" />
+
         <button type="submit" className="bg-blue-500 text-white py-2 rounded cursor-pointer">Add Category</button>
       </form>
 

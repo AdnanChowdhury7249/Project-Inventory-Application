@@ -36,13 +36,13 @@ const ItemForm = () => {
           className="p-2 border border-gray-300 rounded"
         />
 
-        <input type="text"
+        <textarea type="text"
           name="description"
           value={itemData.description}
           onChange={handleChange}
           placeholder="item description"
           required
-          className="p-2 border border-gray-300 rounded"
+          className="p-2 border border-gray-300 rounded w-full h-32 resize-none"
         />
         <button className="bg-blue-500 text-white py-2 rounded cursor-pointer" type="submit">Add Item</button>
       </form>
