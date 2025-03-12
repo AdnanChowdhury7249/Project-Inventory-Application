@@ -23,10 +23,10 @@ const CategoryForm = () => {
   }
 
   return (
-    <div>
-      <h2>Add new Category</h2>
+    <div className="max-w-md mx-auto py-10">
+
       {error && <p className="text-red-500">{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           type="text"
           name="name"
@@ -34,6 +34,7 @@ const CategoryForm = () => {
           onChange={handleChange}
           placeholder="Category Name"
           required
+          className="p-2 border border-gray-300 rounded"
         />
         <input
           type="text"
@@ -42,8 +43,9 @@ const CategoryForm = () => {
           onChange={handleChange}
           placeholder="Category Description"
           required
+          className="p-2 border border-gray-300 rounded"
         />
-        <button type="submit">Add Category</button>
+        <button type="submit" className="bg-blue-500 text-white py-2 rounded cursor-pointer">Add Category</button>
       </form>
 
     </div>

@@ -24,16 +24,16 @@ const ItemForm = () => {
   }
 
   return (
-    <div>
-      <h2>Add new Item</h2>
+    <div className="max-w-md mx-auto py-10">
       {error && <p className="text-red-500">{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input type="text"
           name="name"
           value={itemData.name}
           onChange={handleChange}
           placeholder="item name"
           required
+          className="p-2 border border-gray-300 rounded"
         />
 
         <input type="text"
@@ -42,10 +42,11 @@ const ItemForm = () => {
           onChange={handleChange}
           placeholder="item description"
           required
+          className="p-2 border border-gray-300 rounded"
         />
-        <button className="cursor-pointer" type="submit">Add Item</button>
+        <button className="bg-blue-500 text-white py-2 rounded cursor-pointer" type="submit">Add Item</button>
       </form>
-    </div>
+    </div >
   )
 }
 
