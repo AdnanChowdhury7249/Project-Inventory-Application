@@ -15,7 +15,6 @@ const CategoriesPage = () => {
 
   return (
     <div>
-      <h1 className="text-center text-2xl font-bold">Categories</h1>
       <div className="grid grid-cols-2 gap-4 py-30 w-6/12 mx-auto">
         {Categories.map((cat) => (
           <div key={cat.id}
