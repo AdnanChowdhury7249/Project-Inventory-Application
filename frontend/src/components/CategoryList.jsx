@@ -1,17 +1,38 @@
 import { useEffect, useState } from "react";
-import { getCategories } from "../api";
+import { getCategories, deleteCategory } from "../api";
 import { useNavigate } from "react-router-dom";
+import DeleteModal from "./DeleteModal";
+
 
 
 const CategoriesPage = () => {
   const [Categories, setCategories] = useState([]);
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
     getCategories()
       .then((res) => setCategories(res.data))
       .catch((err) => console.error("error fetching categories", err))
   }, []);
+
+  const handleDeleteClick = (id) => {
+    setSelectedCategory(id);
+    setIsModalOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (selectedCategory) {
+      try {
+        await deleteCategory(selectedCategory)
+        setCategories((prevCategories) => prevCategories.filter((cat) => cat.id !== selectedCategory))
+        setIsModalOpen(false); //
+      } catch (err) {
+        console.error("error deleting category", err)
+      }
+    }
+  }
 
   return (
     <div>
@@ -20,14 +41,25 @@ const CategoriesPage = () => {
           <div key={cat.id}
             onClick={() => navigate(`/category/${cat.id}`)}
             className="p-4 border rounded shadow cursor-pointer hover:bg-gray-100 transition">
-
-
             <h2 className="text-lg font-bold">{cat.name}</h2>
             <p>{cat.description}</p>
+            <button
+              className="text-red-500 cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDeleteClick(cat.id);
+              }}>
+              Delete
+            </button>
           </div>
         ))}
       </div>
-    </div >
+      <DeleteModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={confirmDelete} />
+    </div>
+
   )
 }
 
