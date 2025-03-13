@@ -5,7 +5,9 @@ const CategoryForm = ({ initialData = { name: "", description: "" }, onSubmit })
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setCategoryData(initialData);
+    if (initialData.name || initialData.description) {
+      setCategoryData(initialData);
+    }
   }, [initialData]);
 
   const handleChange = (e) => {

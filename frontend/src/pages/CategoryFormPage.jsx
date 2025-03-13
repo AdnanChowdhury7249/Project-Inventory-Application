@@ -1,34 +1,25 @@
-import { useEffect, useState } from "react";
-import { getCategoryById, updateCategory } from "../api";
-import { useParams, useNavigate } from "react-router-dom";
+import { addCategory } from "../api";
+import { useNavigate } from "react-router-dom";
 import CategoryForm from "../components/CategoryForm";
 
-const CategoryEditPage = () => {
-  const { id } = useParams();
+const CategoryFormPage = () => {
   const navigate = useNavigate();
-  const [categoryData, setCategoryData] = useState({ name: "", description: "" });
 
-  useEffect(() => {
-    getCategoryById(id)
-      .then((res) => setCategoryData(res.data)) // ✅ Fetch category details for editing
-      .catch((err) => console.error("Error fetching category", err));
-  }, [id]);
-
-  const handleUpdate = async (updatedData) => {
+  const handleCreate = async (categoryData) => {
     try {
-      await updateCategory(id, updatedData); // ✅ Call API to update category
-      navigate("/"); // ✅ Redirect after updating
+      await addCategory(categoryData);
+      navigate("/");
     } catch (error) {
-      console.error("Error updating category", error);
+      console.error("Error adding category", error);
     }
   };
 
   return (
     <div>
-      <h1 className="text-center text-2xl font-bold py-10">Edit Category</h1>
-      <CategoryForm initialData={categoryData} onSubmit={handleUpdate} /> {/* ✅ Pass `handleUpdate` */}
+      <h1 className="text-center text-2xl font-bold py-10">Create Category</h1>
+      <CategoryForm onSubmit={handleCreate} />
     </div>
   );
 };
 
-export default CategoryEditPage;
+export default CategoryFormPage;
