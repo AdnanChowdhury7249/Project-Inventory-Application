@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCategories, deleteCategory } from "../api";
+import { getCategories, deleteCategory, updateCategory } from "../api";
 import { useNavigate } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
 
@@ -44,13 +44,21 @@ const CategoriesPage = () => {
             <h2 className="text-lg font-bold">{cat.name}</h2>
             <p>{cat.description}</p>
             <button
-              className="text-red-500 cursor-pointer"
+              className=" cursor-pointer bg bg-red-500 border-none rounded w-25 my-2.5"
               onClick={(e) => {
                 e.stopPropagation();
                 handleDeleteClick(cat.id);
               }}>
               Delete
             </button>
+            <button
+              className=" cursor-pointer bg bg-blue-500 border-none rounded w-25 my-2.5 ml-2"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate(`/category/${cat.id}/edit`);
+              }}
+            >
+              Edit</button>
           </div>
         ))}
       </div>

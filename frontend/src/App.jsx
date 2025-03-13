@@ -3,6 +3,7 @@ import CategoriesPage from "./pages/CategoriesPage";
 import ItemsPage from "./pages/ItemsPage";
 import CategoryFormPage from "./pages/CategoryFormPage";
 import ItemFormPage from "./pages/ItemFormPage";
+import CategoryEditPage from "./pages/CategoryEditPage";
 
 
 function App() {
@@ -12,8 +13,8 @@ function App() {
         <Route path="/" element={<CategoriesPage />} />
         <Route path="/category/:id" element={<ItemsPage />} />
         <Route path="/create-category" element={<CategoryFormPage />} />
+        <Route path="/category/:id/edit" element={<CategoryEditPage />} />
         <Route path="/category/:id/add-item" element={<ItemFormPage />} />
-
       </Routes>
     </Router>
   );
