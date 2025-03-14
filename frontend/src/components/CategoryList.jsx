@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCategories, deleteCategory, updateCategory } from "../api";
+import { getCategories, deleteCategory } from "../api";
 import { useNavigate } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
 

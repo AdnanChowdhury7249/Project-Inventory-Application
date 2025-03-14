@@ -1,12 +1,31 @@
 import { useEffect, useState } from "react";
-import { getItems, getCategoryById } from "../api";
+import { getItems, getCategoryById, deleteItem } from "../api";
 import { useParams } from "react-router-dom";
+import DeleteModal from "./DeleteModal";
 
 const ItemsPage = () => {
   const { id } = useParams();
   const [items, setItems] = useState([]);
   const [categoryName, setCategoryName] = useState("");
+  const [selectedItem, setSelectedItem] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+
+  const handleDeleteClick = (id) => {
+    setSelectedItem(id);
+    setIsModalOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (selectedItem)
+      try {
+        await deleteItem(selectedItem)
+        setItems((prevCategories) => prevCategories.filter((cat) => cat.id !== selectedItem))
+        setIsModalOpen(false);
+      } catch (err) {
+        console.error("error deleting category", err)
+      }
+  }
   useEffect(() => {
     if (id) {
       getCategoryById(id)
@@ -34,6 +53,14 @@ const ItemsPage = () => {
               <div key={item.id} className="p-4 border rounded shadow">
                 <h2 className="text-lg font-bold">{item.name}</h2>
                 <p>{item.description}</p>
+                <button
+                  className=" cursor-pointer bg bg-red-500 border-none rounded w-25 my-2.5"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteClick(item.id);
+                  }}>
+                  Delete
+                </button>
               </div>
             ))
           ) : (
@@ -41,7 +68,12 @@ const ItemsPage = () => {
           )}
         </div>
       </div>
+      <DeleteModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={confirmDelete} />
     </div>
+
   )
 };
 
