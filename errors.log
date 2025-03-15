@@ -14,3 +14,5 @@
 {"level":"error","message":" invalid input syntax for type integer: \"undefined\""}
 {"level":"error","message":" invalid input syntax for type integer: \"undefined\""}
 {"level":"error","message":" invalid input syntax for type integer: \"undefined\""}
+{"level":"error","message":" insert or update on table \"items\" violates foreign key constraint \"items_category_id_fkey\""}
+{"level":"error","message":" insert or update on table \"items\" violates foreign key constraint \"items_category_id_fkey\""}

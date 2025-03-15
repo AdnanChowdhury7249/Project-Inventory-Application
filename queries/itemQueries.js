@@ -57,6 +57,12 @@ async function updateItem(id, name, description, imageUrl) {
   }
 }
 
+async function getItemById(id) {
+  const query = 'SELECT * FROM items WHERE id = $1';
+  const { rows } = await pool.query(query, [id]);
+  return rows[0] || null; // ✅ Return null if no item found
+}
+
 module.exports = {
-  allItems, addItem, deleteItem, updateItem, getItems,
+  allItems, addItem, deleteItem, updateItem, getItems, getItemById,
 };

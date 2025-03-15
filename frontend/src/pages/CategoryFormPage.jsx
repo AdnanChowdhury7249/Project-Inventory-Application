@@ -16,7 +16,7 @@ const CategoryFormPage = () => {
 
   return (
     <div>
-      <h1 className="text-center text-2xl font-bold py-10">Create Category</h1>
+      <h2 className="text-center text-2xl font-bold py-10">Create Category</h2>
       <CategoryForm onSubmit={handleCreate} />
     </div>
   );

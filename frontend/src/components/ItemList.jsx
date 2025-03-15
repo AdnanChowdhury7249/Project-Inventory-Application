@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { getItems, getCategoryById, deleteItem } from "../api";
 import { useParams } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
+import { useNavigate } from "react-router-dom";
+
 
 const ItemsPage = () => {
   const { id } = useParams();
@@ -9,6 +11,8 @@ const ItemsPage = () => {
   const [categoryName, setCategoryName] = useState("");
   const [selectedItem, setSelectedItem] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+
 
 
   const handleDeleteClick = (id) => {
@@ -61,6 +65,14 @@ const ItemsPage = () => {
                   }}>
                   Delete
                 </button>
+                <button
+                  className=" cursor-pointer bg bg-blue-500 border-none rounded w-25 my-2.5 ml-2"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/item/${item.id}/edit`);
+                  }}
+                >
+                  Edit</button>
               </div>
             ))
           ) : (

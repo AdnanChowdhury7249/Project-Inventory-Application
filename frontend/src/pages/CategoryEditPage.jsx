@@ -28,7 +28,7 @@ const CategoryEditPage = () => {
 
   return (
     <div>
-      <h1 className="text-center text-2xl font-bold py-10">Edit Category</h1>
+      <h2 className="text-center text-2xl font-bold py-10">Edit Category</h2>
       <CategoryForm initialData={categoryData} onSubmit={handleSubmit} />
     </div>
   )

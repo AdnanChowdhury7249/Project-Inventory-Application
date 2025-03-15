@@ -13,5 +13,5 @@ export const getItems = (categoryId) => API.get(`/items/${categoryId}`);
 export const addItem = (categoryId, itemData) => API.post(`/items/${categoryId}`, itemData);
 export const updateItem = (id, itemData) => API.put(`/items/${id}`, itemData);
 export const deleteItem = (id) => API.delete(`/items/${id}`);
-
+export const getItemById = (id) => API.get(`/items/category/${id}`);
 export const getCategoryById = (categoryId) => API.get(`/categories/${categoryId}`);

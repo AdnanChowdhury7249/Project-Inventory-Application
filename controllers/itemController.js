@@ -70,6 +70,19 @@ const getItemsByCategory = async (req, res, next) => {
   }
 };
 
+const getItemById = async (req, res, next) => {
+  console.log(`Fetching item with ID: ${req.params.id}`);
+  const { id } = req.params;
+  try {
+    const result = await db.getItemById(id);
+    if (!result) {
+      return res.status(404).json({ error: 'Item not found' });
+    }
+    return res.json(result);
+  } catch (error) {
+    return next(error);
+  }
+};
 module.exports = {
-  getAllItems, postAddItem, deleteItem, putUpdateItem, getItemsByCategory,
+  getAllItems, postAddItem, deleteItem, putUpdateItem, getItemsByCategory, getItemById,
 };

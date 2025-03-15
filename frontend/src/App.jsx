@@ -4,18 +4,23 @@ import ItemsPage from "./pages/ItemsPage";
 import CategoryFormPage from "./pages/CategoryFormPage";
 import ItemFormPage from "./pages/ItemFormPage";
 import CategoryEditPage from "./pages/CategoryEditPage";
-
+import ItemEditPage from "./pages/ItemEditPage";
+import NavBar from "./components/NavBar";
 
 function App() {
   return (
+
     <Router>
+      <NavBar />
       <Routes>
         <Route path="/" element={<CategoriesPage />} />
         <Route path="/category/:id" element={<ItemsPage />} />
         <Route path="/create-category" element={<CategoryFormPage />} />
         <Route path="/category/:id/edit" element={<CategoryEditPage />} />
+        <Route path="/item/:id/edit" element={<ItemEditPage />} />
         <Route path="/category/:id/add-item" element={<ItemFormPage />} />
       </Routes>
+
     </Router>
   );
 }
