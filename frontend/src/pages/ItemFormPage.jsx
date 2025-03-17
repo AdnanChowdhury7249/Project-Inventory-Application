@@ -1,20 +1,24 @@
 import ItemForm from "../components/ItemForm";
-import { useNavigate } from "react-router-dom";
-
+import { useParams, useNavigate } from "react-router-dom";
+import { addItem } from "../api";
 
 const ItemFormPage = () => {
+  const { id: categoryId } = useParams();
   const navigate = useNavigate();
+
+  const handleCreate = async (formData) => {
+    try {
+      await addItem(categoryId, formData);
+      navigate("/");
+    } catch (error) {
+      console.error("Error adding item", error);
+    }
+  };
 
   return (
     <div>
-      <h2 className="text-center text-2xl font-bold py-10">Create a New Item</h2>
-      <button
-        className="block mx-auto text-x2 font-bold py-4 px-5 border rounded-sm cursor-pointer"
-        onClick={() => navigate(-1)}
-      >
-        Go Back
-      </button>
-      <ItemForm />
+      <h1 className="text-center text-2xl font-bold py-10">Create a New Item</h1>
+      <ItemForm initialData={{ name: "", description: "", image: null }} onSubmit={handleCreate} />
     </div>
   );
 };

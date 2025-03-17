@@ -11,7 +11,9 @@ export const deleteCategory = (id) => API.delete(`/categories/${id}`);
 
 export const getAllItems = () => API.get("/items");
 export const getItems = (categoryId) => API.get(`/items/${categoryId}`);
-export const addItem = (categoryId, itemData) => API.post(`/items/${categoryId}`, itemData);
+export const addItem = (categoryId, formData) => API.post(`/items/${categoryId}`, formData, {
+  headers: { "Content-Type": "multipart/form-data" },
+});
 export const updateItem = (id, itemData) => API.put(`/items/${id}`, itemData);
 export const deleteItem = (id) => API.delete(`/items/${id}`);
 export const getItemById = (id) => API.get(`/items/category/${id}`);

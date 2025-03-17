@@ -9,13 +9,13 @@ async function allItems() {
   `;
 
   const { rows } = await pool.query(query);
-  return rows; // ✅ Includes category name
+  return rows;
 }
 
 async function getItems(categoryId) {
   const query = 'SELECT * FROM items WHERE category_id = $1';
   const { rows } = await pool.query(query, [categoryId]);
-  return rows; // ✅ Ensure it returns actual rows
+  return rows;
 }
 
 async function addItem(name, description, categoryId, imageUrl) {
@@ -68,7 +68,7 @@ async function updateItem(id, name, description, imageUrl) {
 async function getItemById(id) {
   const query = 'SELECT * FROM items WHERE id = $1';
   const { rows } = await pool.query(query, [id]);
-  return rows[0] || null; // ✅ Return null if no item found
+  return rows[0] || null;
 }
 
 module.exports = {

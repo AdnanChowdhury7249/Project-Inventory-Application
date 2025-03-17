@@ -6,20 +6,19 @@ import ItemForm from "../components/ItemForm";
 const ItemEditPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [itemData, setItemData] = useState({ name: "", description: "" });
+  const [itemData, setItemData] = useState({ name: "", description: "", image: null });
 
+  // Fetch item details for editing
   useEffect(() => {
-    if (id) {
-      getItemById(id)
-        .then((res) => setItemData(res.data))
-        .catch((error) => console.error("Error fetching item", error));
-    }
+    getItemById(id)
+      .then((res) => setItemData(res.data))
+      .catch((error) => console.error("Error fetching item", error));
   }, [id]);
 
   const handleSubmit = async (updatedData) => {
     try {
       await updateItem(id, updatedData);
-      navigate("/");
+      navigate(-1);
     } catch (error) {
       console.error("Error updating item", error);
     }
@@ -27,7 +26,7 @@ const ItemEditPage = () => {
 
   return (
     <div>
-      <h2 className="text-center text-2xl font-bold py-10">Edit Item</h2>
+      <h1 className="text-center text-2xl font-bold py-10">Edit Item</h1>
       <ItemForm initialData={itemData} onSubmit={handleSubmit} />
     </div>
   );

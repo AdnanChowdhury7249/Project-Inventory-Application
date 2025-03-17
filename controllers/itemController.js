@@ -1,5 +1,23 @@
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 const db = require('../queries/itemQueries');
 
+const uploadDir = path.join(__dirname, '../uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Save images in "uploads" directory
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // Unique filename
+  },
+});
+
+const upload = multer({ storage });
 const getAllItems = async (req, res, next) => {
   try {
     const result = await db.allItems();
@@ -11,19 +29,26 @@ const getAllItems = async (req, res, next) => {
 };
 
 const postAddItem = async (req, res, next) => {
-  const { name, description, imageUrl } = req.body;
-  const { categoryId } = req.params;
-  if (!name || !description) {
-    return res.status(400).json({ error: 'Name and description are required' });
-  }
   try {
+    console.log('Request Body:', req.body); // Debugging
+    console.log('Uploaded File:', req.file); // Debugging
+
+    const { name, description } = req.body;
+    const { categoryId } = req.params;
+
+    if (!name || !description) {
+      return res.status(400).json({ error: 'Name and description are required' });
+    }
+    const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
+
+    // ✅ Save item to DB
     const newItem = await db.addItem(name, description, categoryId, imageUrl);
     return res.status(201).json(newItem);
   } catch (error) {
+    console.error('Error adding item:', error);
     return next(error);
   }
 };
-
 const deleteItem = async (req, res, next) => {
   const { id } = req.params;
 
@@ -40,23 +65,31 @@ const deleteItem = async (req, res, next) => {
 };
 
 const putUpdateItem = async (req, res, next) => {
+  console.log('PUT Request Params:', req.params);
+  console.log('PUT Request Body:', req.body);
+  console.log('Uploaded File:', req.file); // Debugging
+
   const { id } = req.params;
-  const { name, description, imageUrl } = req.body;
+  const { name, description } = req.body;
+
   if (!name || !description) {
-    return res.status(400).json({ error: 'name and description required' });
+    return res.status(400).json({ error: 'Name and description required' });
   }
+
   try {
+    const imageUrl = req.file ? `/uploads/${req.file.filename}` : req.body.imageUrl; // Preserve existing image if no new upload
     const result = await db.updateItem(id, name, description, imageUrl);
 
-    if (result.error) {
-      return res.status(404).json(result);
+    if (!result) {
+      return res.status(404).json({ error: 'Item not found' });
     }
+
     return res.status(200).json(result);
   } catch (error) {
+    console.error('Error updating item:', error);
     return next(error);
   }
 };
-
 const getItemsByCategory = async (req, res, next) => {
   const { categoryId } = req.params;
   try {

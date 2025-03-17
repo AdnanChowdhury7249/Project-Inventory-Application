@@ -51,28 +51,44 @@ const ItemsPage = () => {
       <h1 className="text-2xl font-bold text-center">Items in {categoryName}
       </h1>
       <div className=" flex justify-center">
-        <div className="grid grid-cols-2 gap-4 py-10 w-6/12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 py-10 w-full max-w-5xl">
           {items.length > 0 ? (
             items.map((item) => (
-              <div key={item.id} className="p-4 border rounded shadow">
-                <h2 className="text-lg font-bold">{item.name}</h2>
-                <p>{item.description}</p>
-                <button
-                  className=" cursor-pointer bg bg-red-500 border-none rounded w-25 my-2.5"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDeleteClick(item.id);
-                  }}>
-                  Delete
-                </button>
-                <button
-                  className=" cursor-pointer bg bg-blue-500 border-none rounded w-25 my-2.5 ml-2"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate(`/item/${item.id}/edit`);
-                  }}
-                >
-                  Edit</button>
+              <div key={item.id} className=" border rounded-4xl shadow border-gray-200 bg-white 
+             transition-transform duration-500 ease-in-out 
+             hover:scale-102 hover:shadow-lg">
+                {item.image_url && (
+                  <div className=" rounded-t-4xl w-full h-40 flex justify-center items-center bg-gray-100  overflow-hidden">
+                    <img
+                      src={`http://localhost:5000${item.image_url}`}
+                      alt={item.name}
+                      className=" max-h-full max-w-full object-contain"
+                    />
+                  </div>
+                )}
+                <div className="flex items-center justify-between my-4">
+                  <h2 className=" ml-8 text-lg font-bold">{item.name}</h2>
+
+                  <div className="flex space-x-2 mr-4">
+                    <button
+                      className="bg-red-500 text-white px-4 py-1 rounded"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteClick(item.id);
+                      }}>
+                      Delete
+                    </button>
+                    <button
+                      className="bg-blue-500 text-white px-4 py-1 rounded"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/item/${item.id}/edit`);
+                      }}>
+                      Edit
+                    </button>
+                  </div>
+                </div>
+                <p className="ml-8 my-8 text-gray-500">{item.description}</p>
               </div>
             ))
           ) : (

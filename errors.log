@@ -16,3 +16,16 @@
 {"level":"error","message":" invalid input syntax for type integer: \"undefined\""}
 {"level":"error","message":" insert or update on table \"items\" violates foreign key constraint \"items_category_id_fkey\""}
 {"level":"error","message":" insert or update on table \"items\" violates foreign key constraint \"items_category_id_fkey\""}
+{"level":"error","message":" ENOENT: no such file or directory, open 'C:\\Users\\Adnan\\repos\\Project-Inventory-Application\\uploads\\1742238461717.png'"}
+{"level":"error","message":" ENOENT: no such file or directory, open 'C:\\Users\\Adnan\\repos\\Project-Inventory-Application\\uploads\\1742238594190.png'"}
+{"level":"error","message":" ENOENT: no such file or directory, open 'C:\\Users\\Adnan\\repos\\Project-Inventory-Application\\uploads\\1742238604929.png'"}
+{"level":"error","message":" Cannot destructure property 'name' of 'req.body' as it is undefined."}
+{"level":"error","message":" Cannot destructure property 'name' of 'req.body' as it is undefined."}
+{"level":"error","message":" Cannot destructure property 'name' of 'req.body' as it is undefined."}
+{"level":"error","message":" Cannot read properties of undefined (reading 'transfer-encoding')"}
+{"level":"error","message":" Cannot read properties of undefined (reading 'transfer-encoding')"}
+{"level":"error","message":" insert or update on table \"items\" violates foreign key constraint \"items_category_id_fkey\""}
+{"level":"error","message":" invalid input syntax for type integer: \"undefined\""}
+{"level":"error","message":" invalid input syntax for type integer: \"undefined\""}
+{"level":"error","message":" invalid input syntax for type integer: \"undefined\""}
+{"level":"error","message":" invalid input syntax for type integer: \"undefined\""}
