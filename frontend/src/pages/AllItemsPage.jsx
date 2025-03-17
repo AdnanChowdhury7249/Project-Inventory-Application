@@ -20,7 +20,7 @@ const AllItemsPage = () => {
             className="p-4 border rounded shadow  hover:bg-gray-100 transition">
             <h2 className="text-lg font-bold my-2.5">{item.name}</h2>
             <p>{item.description}</p>
-            <p className="text-sm my-2.5">Category: {item.category_name || "unknown"}</p> {/* ✅ Display category */}
+            <p className="text-sm my-2.5">Category: {item.category_name}</p>
 
           </div>
         ))}
