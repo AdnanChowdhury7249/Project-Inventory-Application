@@ -3,7 +3,7 @@ const db = require('../queries/itemQueries');
 const getAllItems = async (req, res, next) => {
   try {
     const result = await db.allItems();
-    return res.json(result.rows);
+    return res.json(result);
   } catch (error) {
     console.error(error);
     return next(error);

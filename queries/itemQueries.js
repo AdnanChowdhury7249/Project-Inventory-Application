@@ -1,7 +1,15 @@
 const pool = require('../db/pool');
 
 async function allItems() {
-  return pool.query('SELECT * FROM items');
+  const query = `
+    SELECT items.id, items.name, items.description, items.image_url, 
+           category.name AS category_name
+    FROM items
+    JOIN category ON items.category_id = category.id
+  `;
+
+  const { rows } = await pool.query(query);
+  return rows; // ✅ Includes category name
 }
 
 async function getItems(categoryId) {
