@@ -62,7 +62,7 @@ const ItemsPage = () => {
                     <img
                       src={`http://localhost:5000${item.image_url}`}
                       alt={item.name}
-                      className=" max-h-full max-w-full object-contain"
+                      className=" w-full h-full object-fill"
                     />
                   </div>
                 )}
