@@ -1,4 +1,4 @@
-const multer = require('multer');
+// const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const db = require('../queries/itemQueries');
@@ -8,16 +8,17 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // Save images in "uploads" directory
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // Unique filename
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, 'uploads/'); // Save images in "uploads" directory
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, Date.now() + path.extname(file.originalname)); // Unique filename
+//   },
+// });
 
-const upload = multer({ storage });
+// const upload = multer({ storage });
+
 const getAllItems = async (req, res, next) => {
   try {
     const result = await db.allItems();
@@ -30,9 +31,6 @@ const getAllItems = async (req, res, next) => {
 
 const postAddItem = async (req, res, next) => {
   try {
-    console.log('Request Body:', req.body); // Debugging
-    console.log('Uploaded File:', req.file); // Debugging
-
     const { name, description } = req.body;
     const { categoryId } = req.params;
 
@@ -49,6 +47,7 @@ const postAddItem = async (req, res, next) => {
     return next(error);
   }
 };
+
 const deleteItem = async (req, res, next) => {
   const { id } = req.params;
 

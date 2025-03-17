@@ -54,11 +54,11 @@ const ItemsPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 py-10 w-full max-w-5xl">
           {items.length > 0 ? (
             items.map((item) => (
-              <div key={item.id} className=" border rounded-4xl shadow border-gray-200 bg-white 
+              <div key={item.id} className=" border rounded-3xl shadow border-gray-200 bg-white 
              transition-transform duration-500 ease-in-out 
              hover:scale-102 hover:shadow-lg">
                 {item.image_url && (
-                  <div className=" rounded-t-4xl w-full h-40 flex justify-center items-center bg-gray-100  overflow-hidden">
+                  <div className=" rounded-t-3xl w-full h-50 flex justify-center items-center bg-gray-100  overflow-hidden">
                     <img
                       src={`http://localhost:5000${item.image_url}`}
                       alt={item.name}
@@ -71,7 +71,7 @@ const ItemsPage = () => {
 
                   <div className="flex space-x-2 mr-4">
                     <button
-                      className="bg-red-500 text-white px-4 py-1 rounded"
+                      className="bg-red-500 text-white px-4 py-1 rounded cursor-pointer"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleDeleteClick(item.id);
@@ -79,7 +79,7 @@ const ItemsPage = () => {
                       Delete
                     </button>
                     <button
-                      className="bg-blue-500 text-white px-4 py-1 rounded"
+                      className="bg-blue-500 text-white px-4 py-1 rounded cursor-pointer"
                       onClick={(e) => {
                         e.stopPropagation();
                         navigate(`/item/${item.id}/edit`);
