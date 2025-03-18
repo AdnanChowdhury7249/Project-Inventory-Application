@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import deleteIcon from "../assets/delete.png";
+import editIcon from "../assets/edit.png";
 
 const ItemCard = ({ item, showActions = false, showCategory = false, handleDeleteClick }) => {
   const navigate = useNavigate();
@@ -20,31 +22,40 @@ const ItemCard = ({ item, showActions = false, showCategory = false, handleDelet
           />
         </div>
       )}
-      <div className="flex items-center justify-between my-4 px-6">
-        <h2 className="text-lg font-bold">{item.name}</h2>
+      <div className="flex items-center justify-between my-6 px-6">
+        <h2 className="text-red-1x1 font-medium">{item.name}</h2>
         {showActions && (
           <div className="flex gap-2">
             <button
-              className="bg-blue-500 text-white px-4 py-1 rounded"
+              className="cursor-pointer hover:bg-gray-200 rounded p-1"
               onClick={() => navigate(`/item/${item.id}/edit`)}
             >
-              Edit
+              <img
+                src={editIcon}
+                alt="Delete"
+                className="w-6 h-6 transition duration-200 hover:grayscale hover:brightness-5 "
+              />
             </button>
+
             <button
-              className="bg-red-500 text-white px-4 py-1 rounded"
+              className="cursor-pointer hover:bg-gray-200 rounded p-1"
               onClick={() => handleDeleteClick(item.id)}
             >
-              Delete
+              <img
+                src={deleteIcon}
+                alt="Delete"
+                className="w-6 h-6 transition duration-200 hover:grayscale hover:brightness-5 "
+              />
             </button>
           </div>
         )}
       </div>
 
-      <p className="ml-8 my-8 text-gray-500">{item.description}</p>
+      <p className="ml-6 p-0.5 my-6 text-gray-500 text-sm">{item.description}</p>
 
       {showCategory && (<p className="px-6 my-4 text-gray-500 text-sm">Category: {item.category_name}</p>)}
 
-    </div>
+    </div >
   );
 };
 
