@@ -27,6 +27,7 @@ router.post('/:categoryId', upload.single('image'), postAddItem);
 router.get('/', getAllItems);
 router.get('/:categoryId', getItemsByCategory);
 router.get('/category/:id', getItemById);
-router.put('/:id', upload.single('image'), putUpdateItem); router.delete('/:id', deleteItem);
+router.put('/:id', upload.single('image'), putUpdateItem);
+router.delete('/:id', deleteItem);
 
 module.exports = router;

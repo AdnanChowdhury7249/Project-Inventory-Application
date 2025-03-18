@@ -7,7 +7,6 @@ const CategoryPage = () => {
 
   return (
     <div>
-      {/* Button container with flexbox */}
       <div className="flex justify-center gap-4 my-10">
         <button
           className="w-40 py-3 px-5 bg-blue-500 text-white font-bold rounded-md shadow-md hover:bg-blue-700 transition duration-300 cursor-pointer"

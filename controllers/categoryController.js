@@ -10,11 +10,12 @@ const getAllCategories = async (req, res, next) => {
 };
 
 const postAddCategory = async (req, res, next) => {
-  const { name, description, imageUrl } = req.body;
+  const { name, description } = req.body;
 
   if (!name || !description) {
     return res.status(400).json({ error: 'Name and description are required' });
   }
+  const imageUrl = `/uploads/${req.file.filename}`;
 
   try {
     const newCategory = await db.AddCategory(name, description, imageUrl);
@@ -42,11 +43,12 @@ const deleteCategory = async (req, res, next) => {
 
 const putUpdateCategory = async (req, res, next) => {
   const { id } = req.params;
-  const { name, description, imageUrl } = req.body;
+  const { name, description } = req.body;
 
   if (!name || !description) {
     return res.status(400).json({ error: 'Name and description are required' });
   }
+  const imageUrl = `/uploads/${req.file.filename}`;
   try {
     const result = await db.updateCategory(id, name, description, imageUrl);
     if (result.error) {

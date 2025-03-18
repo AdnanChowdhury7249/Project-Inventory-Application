@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getCategories, deleteCategory } from "../api";
 import { useNavigate } from "react-router-dom";
 import DeleteModal from "./DeleteModal";
+import CategoryCard from "./CategoryCard";
 
 
 
@@ -35,40 +36,22 @@ const CategoriesPage = () => {
   }
 
   return (
-    <div>
-      <div className="grid grid-cols-2 gap-4 py-30 w-6/12 mx-auto">
-        {Categories.map((cat) => (
-          <div key={cat.id}
-            onClick={() => navigate(`/category/${cat.id}`)}
-            className="p-4 border rounded shadow cursor-pointer hover:bg-gray-100 transition">
-            <h2 className="text-lg font-bold">{cat.name}</h2>
-            <p>{cat.description}</p>
-            <button
-              className=" cursor-pointer bg bg-red-500 border-none rounded w-25 my-2.5"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleDeleteClick(cat.id);
-              }}>
-              Delete
-            </button>
-            <button
-              className=" cursor-pointer bg bg-blue-500 border-none rounded w-25 my-2.5 ml-2"
-              onClick={(e) => {
-                e.stopPropagation();
-                navigate(`/category/${cat.id}/edit`);
-              }}
-            >
-              Edit</button>
-          </div>
-        ))}
+    <div className="p-8">
+      <h1 className="text-2xl font-bold text-center">Categories </h1>
+      <div className="flex justify-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 py-10 w-full max-w-5xl">
+          {Categories.length > 0 ? (
+            Categories.map((cat) => (
+              <CategoryCard key={cat.id} category={cat} handleDeleteClick={handleDeleteClick} />
+            ))
+          ) : (
+            <p>No items found in this category.</p>
+          )}
+        </div>
       </div>
-      <DeleteModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onConfirm={confirmDelete} />
+      <DeleteModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={confirmDelete} />
     </div>
-
-  )
-}
+  );
+};
 
 export default CategoriesPage;
