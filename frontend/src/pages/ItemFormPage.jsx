@@ -9,7 +9,7 @@ const ItemFormPage = () => {
   const handleCreate = async (formData) => {
     try {
       await addItem(categoryId, formData);
-      navigate("/");
+      navigate(-1);
     } catch (error) {
       console.error("Error adding item", error);
     }

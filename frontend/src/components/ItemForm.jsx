@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const ItemForm = ({ initialData = { name: "", description: "", image: null }, onSubmit }) => {
   const { id: categoryId } = useParams();
@@ -71,6 +72,19 @@ const ItemForm = ({ initialData = { name: "", description: "", image: null }, on
       </form>
     </div>
   );
+};
+
+ItemForm.propTypes = {
+  initialData: PropTypes.shape({
+    name: PropTypes.string,
+    description: PropTypes.string,
+    image: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(File),
+      PropTypes.oneOf([null])
+    ]),
+  }),
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default ItemForm;
