@@ -70,7 +70,7 @@ const ItemForm = ({ initialData = { name: "", description: "", image: null }, on
         <div className="max-w-lg mx-auto py-2 flex gap-3">
           <button
             type="button"
-            onClick={() => navigate("/")}
+            onClick={() => navigate(-1)}
             className="py-2 cursor-pointer text-sm p-8 font-medium border border-gray-300 rounded-lg hover:bg-gray-100">
             Cancel
           </button>
