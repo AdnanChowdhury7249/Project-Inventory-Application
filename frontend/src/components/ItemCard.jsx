@@ -51,7 +51,7 @@ const ItemCard = ({ item, showActions = false, showCategory = false, handleDelet
         )}
       </div>
 
-      <p className="ml-6 p-0.5 my-6 text-gray-500 text-sm">{item.description}</p>
+      <p className="ml-5 p-0.5 my-6 text-sm">{item.description}</p>
 
       {showCategory && (<p className="px-6 my-4 text-gray-500 text-sm">Category: {item.category_name}</p>)}
 

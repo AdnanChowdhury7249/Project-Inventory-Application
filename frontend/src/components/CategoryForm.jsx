@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ItemForm = ({ initialData = { name: "", description: "", image: null }, onSubmit }) => {
+  const navigate = useNavigate();
   const { id: categoryId } = useParams();
   const [itemData, setItemData] = useState(initialData);
   const [error, setError] = useState(null);
@@ -65,11 +67,23 @@ const ItemForm = ({ initialData = { name: "", description: "", image: null }, on
           className="p-2 border border-gray-300 rounded w-full h-32 resize-none"
         />
         <input type="file" accept="image/*" onChange={handleFileChange} className="p-2 border border-gray-300 rounded" />
-        <button type="submit" className="bg-blue-500 text-white py-2 rounded cursor-pointer">
-          {initialData.name ? "Update Item" : "Add Item"}
-        </button>
+        <div className="max-w-lg mx-auto py-2 flex gap-3">
+          <button
+            type="button"
+            onClick={() => navigate("/")}
+            className="py-2 cursor-pointer text-sm p-8 font-medium border border-gray-300 rounded-lg hover:bg-gray-100">
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white py-2 cursor-pointer text-sm p-3 font-medium hover:bg-blue-400 rounded-lg  ">
+            {initialData.name ? "Update Item" : "Create Category"}
+          </button>
+        </div>
+
+
       </form>
-    </div>
+    </div >
   );
 };
 
